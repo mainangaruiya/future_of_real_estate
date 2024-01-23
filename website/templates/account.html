@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block account_button %}
+    <li style="float: left;"><a href="{{ url_for('account') }}" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;">Account</a></li>
+{% endblock %}
+
+{% block content %}
+    <!-- Your account-specific content goes here -->
+    <!-- For example, you can include login and sign-up forms/buttons -->
+{% endblock %}

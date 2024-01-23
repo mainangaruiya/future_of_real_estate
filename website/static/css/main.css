@@ -1,0 +1,298 @@
+body *{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+}
+body {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.main-header {
+    width: 1000px;
+    margin-top: 20px;
+    margin-left: calc(50% - 500px);
+    display: inline-block;
+}
+.logo {
+    width: 100px;
+    height: 30px;
+    float: left;
+    margin-top: 5px;
+   
+}
+.main-header-right-side {
+    float: right;
+}
+nav {
+    float: left;
+    margin-top: 10px;
+    margin-right: 30px;
+    font-size: 18px;
+}
+.menu {
+    line-height: 20px;
+    text-decoration: none;
+    color: #333;
+    margin-right: 30px;
+}
+.menu:hover {
+    border-bottom: 2px solid #333;
+    padding-bottom: 2px;
+}
+.menu:last-child {
+    margin-right: 0;
+}
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    float: right;
+    border-radius: 50%;
+    cursor: pointer;
+}
+ main {
+    width: 1000px;
+    margin: 20px calc(50% - 500px) 40px;
+    display: inline-block;
+ }
+ .hero{
+    width: 100%;
+    background-color: rgb(207, 233, 255);
+    margin-bottom: 20px;
+    background-size: cover;
+    min-height: 280px;
+    padding: 30px;
+    background-image: url(../img/hero.webp);
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-end;
+ }
+ .hero-content {
+    width: 30%;
+ }
+ .main-heading {
+    margin-bottom: 30px;
+ }
+ .hero .container{
+  width: 60%;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  gap: 0 7px;
+  border-radius: 5px;
+ }
+ .container .buy-button{
+  margin: 5px;
+ }
+ .container .rent-button{
+  margin: 5px;
+ }
+ label {
+  cursor: pointer;
+ }
+ .container input[type="checkbox"]{
+  display: none;
+ }
+ .container label span{
+  display: inline-block;
+  background-color: #fff;
+  padding: 4px 20px;
+  color: #8080FF;
+  border-radius: 5px;
+  transition: .3s;
+  user-select: none;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.27);
+ }
+ .container input[type="checkbox"]:checked ~ span{
+  background-color: #8080FF;
+  color: #fff;
+ }
+ .search{
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  gap: 15px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 10px;
+ }
+ .search .input{
+  padding: 5px 20px;
+  flex-grow: 1;
+  border: none;
+ }
+ ::placeholder{
+  font-size: 12px;
+ }
+ .search .label{
+  display: none;
+ }
+ .search .search-btn{
+  background-color: #FF9376;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(255, 147, 118, 0.27);
+  border: none;
+ }
+ .neighborhood{
+    width: 60%;
+    float: left;
+ }
+.title-heading{
+  font-size: 20px;
+ }
+.title-text{
+  color: #999;
+ }
+ .neighborhood .items{
+  display: flex;
+  flex-flow: row;
+  margin-top: 20px;
+  justify-content: space-evenly;
+ }
+ .neighborhood .item-one{
+  position: relative;
+  width: 30%;
+  height: 200px;
+  background-image: url(../img/3.webp);
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  cursor: pointer;
+ }
+ .neighborhood .item-two{
+  position: relative;
+  width: 30%;
+  height: 200px;
+  background-image: url(../img/1.webp);
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  cursor: pointer;
+ }
+ .neighborhood .item-three{
+  position: relative;
+  width: 30%;
+  height: 140px;
+  background-image: url(../img/2.webp);
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  cursor: pointer;
+ }
+ .neighborhood .info{
+  position: absolute;
+  display: flex;
+  flex-flow: column;
+  width: 80%;
+  bottom: 10px;
+  right: 17px;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(3px);
+ }
+ .neighborhood .location{
+  padding: 3px;
+  font-size: 12px;
+  color: #8788FF;
+ }
+ .neighborhood .name{
+  padding-left: 3px;
+  font-weight: 500;
+ }
+ .neighborhood .price{
+  background-color: #869DF9;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #fff;
+  font-size: 12px;
+  padding: 5px;
+  border-radius: 0 10px 0 5px;
+ }
+ .neighborhood .button{
+  position: absolute;
+  bottom: -30px;
+ }
+ .neighborhood .btn{
+  background-color: #FF9376;
+  padding: 5px 20px;
+  text-decoration: none;
+  color: #fff;
+  border-radius: 5px;
+  text-transform: capitalize;
+  box-shadow: 0 4px 8px rgba(255, 147, 118, 0.27);
+  transition: .3s ease-in-out;
+ }
+ .btn:hover{
+  color:#FF9376;
+  background-color: #fff;
+ }
+ .recommended{
+  float: right;
+ }
+ .recommended .recommended-items{
+  display: flex;
+  flex-flow: column;
+  gap: 15px;
+  margin-top: 10px;
+ }
+ .recommended .item{
+  border: 1px solid #999;
+  border-radius: 10px;
+  display: flex;
+  height: 120px;
+  position: relative;
+ }
+ .item .image{
+  width: 30%;
+  background-image: url(../img/4.webp);
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  margin: 5px;
+ }
+ .recommended .info{
+  display: flex;
+  flex-flow: column;
+  gap: 5px;
+  justify-content: flex-end;
+  margin-left: 5px;
+  margin-bottom: 5px;
+ }
+ .recommended .price{
+  font-size: 16px;
+  font-weight: bold;
+ }
+ .recommended .address-one{
+  font-size: 14px;
+ }
+ .recommended .address-two{
+  font-size: 12px;
+  color: #999;
+ }
+ .recommended .benefits{
+  display: flex;
+  gap: 5px;
+  font-size: 14px;
+ }
+ .recommended .fa {
+  color: #8788FF;
+ }
+ .bookmark{
+  font-size: 25px;
+  position: absolute;
+  top: -3px;
+  right: 10px;
+  cursor: pointer;
+ }
+ .bookmark > .fa-bookmark{
+  display: none;
+ }
+ .bookmark:hover > .fa-bookmark{
+  display: block;
+ }
+ .bookmark:hover > .fa-bookmark-o{
+  display: none;
+ }

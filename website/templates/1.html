@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Sell - My Website{% endblock %}
+
+{% block head %}
+    <!-- Remove previous head content -->
+{% endblock %}
+
+{% block content %}
+    <h2 style="color: #333; text-align: center;">Sell Page</h2>
+    <!-- For example, the upload form -->
+    <form action="{{ url_for('upload_file') }}" method="POST" enctype="multipart/form-data" style="max-width: 400px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9;">
+        <!-- Your form fields go here -->
+
+        <label for="property-type" style="display: block; margin-bottom: 5px; color: #555;">Select Property Type:</label>
+        <select id="property-type" name="property-type" style="width: 100%; margin-bottom: 10px; padding: 10px; box-sizing: border-box;">
+            <option value="studio-apartment">Studio Apartment</option>
+            <option value="mansionette">Mansionette</option>
+            <option value="bungalow">Bungalow</option>
+            <option value="villa">Villa</option>
+        </select>
+
+        <label for="file" style="display: block; margin-bottom: 5px; color: #555;">Upload Video:</label>
+        <input type="file" name="file" accept=".webm, .mp4, .avi, .mov, .mkv" style="width: 100%; margin-bottom: 10px; padding: 8px; box-sizing: border-box; border: 1px solid #ccc;">
+
+        <label for="location" style="display: block; margin-bottom: 5px; color: #555;">Location:</label>
+        <select id="search-location" name="search-location" style="width: 100%; margin-bottom: 10px; padding: 10px; box-sizing: border-box;">
+            <!-- Options for location here -->
+        </select>
+
+        <label for="title" style="display: block; margin-bottom: 5px; color: #555;">Property Title:</label>
+        <input type="text" name="title" placeholder="Title" style="width: 100%; margin-bottom: 10px; padding: 10px; box-sizing: border-box;">
+
+        <label for="bedrooms" style="display: block; margin-bottom: 5px; color: #555;">Number of Bedrooms:</label>
+        <input type="number" name="bedrooms" placeholder="Number of Bedrooms" style="width: 100%; margin-bottom: 10px; padding: 10px; box-sizing: border-box;">
+
+        <label for="price" style="display: block; margin-bottom: 5px; color: #555;">Price:</label>
+        <input type="number" name="price" placeholder="Price" style="width: 100%; margin-bottom: 10px; padding: 10px; box-sizing: border-box;">
+
+        <input type="submit" value="Upload Property" style="background-color: #4caf50; color: #fff; cursor: pointer; padding: 10px 15px; border: none; border-radius: 4px;">
+    </form>
+{% endblock %}

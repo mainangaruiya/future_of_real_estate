@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <!-- Add additional head content if needed -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
+    <style>
+        /* Add your styles here if needed */
+    </style>
+{% endblock %}
+
+{% block content %}
+    <main>
+        <section class="hero" style="position: relative; padding-right: 20px; background-color: darkgray; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+            <div class="hero-content">
+                <h1 class="main-heading">We help you find your dream home.</h1>
+                <div class="container">
+                    <div class="buy-button">
+                        <label>
+                            <input type="checkbox">
+                            <span>Buy</span>
+                        </label>
+                    </div>
+                    <div class="rent-button">
+                        <label>
+                            <input type="checkbox">
+                            <span>Rent</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="search">
+                    <label class="label" for="search">Search for city or zip code</label>
+                    <input class="input" id="search" type="text" placeholder="Search for City, Zip...">
+                    <button class="fa fa-search search-btn" type="submit"></button>
+                </div>
+                <img src="{{ url_for('static', filename='1.webp') }}" alt="Small Image" style="position: absolute; top: 50%; right: 0; transform: translateY(-50%); max-height: 100px;">
+            </div>
+        </section>
+        <br>
+        <section class="neighborhood" style="position: relative; display: flex; align-items: center; border: 1px solid #ddd; padding: 20px; margin-bottom: 20px; background-color: grey;">
+            <div style="flex: 1;">
+                <img src="{{ url_for('static', filename='2.webp') }}" alt="Small Image" style="position: absolute; top: 50%; right: 0; transform: translateY(-50%); max-height: 100%; width: auto; border: 1px solid #ddd; border-radius: 50%;">
+                <div class="title">
+                    <h2 class="title-heading">Top neighborhood</h2>
+                    <p class="title-text">Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+                </div>
+                <div class="items">
+                    <div class="item-one">
+                        <div class="info">
+                            <p class="location"><i class="fa fa-map-marker" aria-hidden="true"></i> Location</p>
+                            <p class="name">Name</p>
+                        </div>
+                        <div class="price">Price / Sq.Ft.</div>
+                    </div>
+                    <div class="item-two">
+                        <div class="info">
+                            <p class="location"><i class="fa fa-map-marker" aria-hidden="true"></i> Location</p>
+                            <p class="name">Name</p>
+                        </div>
+                        <div class="price">Price / Sq.Ft.</div>
+                    </div>
+                    <div class="item-three">
+                        <div class="info">
+                            <p class="location"><i class="fa fa-map-marker" aria-hidden="true"></i> Location</p>
+                            <p class="name">Name</p>
+                        </div>
+                        <div class="price">Price / Sq.Ft.</div>
+                        <div class="button">
+                            <a class="btn" href="#">See all</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer style="background-image: url('{{ url_for('static', filename='hero.webp') }}'); background-size: cover; color: #000; padding: 20px; border: 1px solid #555;">
+            <div style="display: flex; justify-content: space-around; align-items: flex-start;">
+                <div style="flex: 1;">
+                    <h4>About Us</h4>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut nisi
+                        vestibulum, convallis urna et, fermentum sem. Suspendisse vel justo vel elit
+                        eleifend bibendum at id massa.
+                    </p>
+                </div>
+                <div style="flex: 1;">
+                    <h4>Contact Us</h4>
+                    <p>
+                        <a href="tel:+44797113455">0797113455</a>
+                    </p>
+                    <p>
+                        <a href="mailto:sample@gmail.com">sample@gmail.com</a>
+                    </p>
+                </div>
+                <div style="flex: 1;">
+                    <h4>Location</h4>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut nisi
+                        vestibulum, convallis urna et, fermentum sem. Suspendisse vel justo vel elit
+                        eleifend bibendum at id massa.
+                    </p>
+                </div>
+            </div>
+            <hr style="border-top: 1px solid #555; margin: 20px 0;">
+            <div style="text-align: center;">
+                <p>&copy; 2024 Your Company Name. All rights reserved.</p>
+            </div>
+        </footer>
+    </main>
+{% endblock %}
