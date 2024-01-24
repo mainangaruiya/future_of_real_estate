@@ -1,12 +1,10 @@
-from flask import Flask, render_template, request, make_response, jsonify, redirect, url_for, send_from_directory
-from werkzeug.utils import secure_filename
-import os
-import uuid
-import json
-from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-from website import auth  # assuming auth is the name of your authentication blueprint
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.sql import func
+from website import auth
+#from website.views import *  
+import os
+from flask_login import LoginManager
+import json
 
 app = Flask(__name__, template_folder='website/templates', static_folder='website/static', static_url_path='/website/static')
 
@@ -16,6 +14,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] =\
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
+
+#app.register_blueprint(auth.auth) 
 
 app.config['MAX_CONTENT_LENGTH'] = 30 * 1024 * 1024  # 30 MB
 ALLOWED_EXTENSIONS = {'webm', 'mp4', 'avi', 'mov', 'mkv'}
@@ -89,7 +89,7 @@ def signup():
        
 
 @app.route('/account')
-@login_required
+#@login_required
 def account():
     from website.models import User
     # Display user account information
@@ -101,7 +101,7 @@ def serve_uploaded_file(filename):
 
 
 @app.route('/upload', methods=['POST', 'GET'])
-@login_required
+#@login_required
 def upload_file():
     from website.models import User
     if request.method == 'POST':
