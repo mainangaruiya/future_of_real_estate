@@ -36,6 +36,8 @@ def logout():
 def sign_up():
     if request.method == 'POST':
         email = request.form.get('email')
+        first_name = request.form.get('firstName')
+        lastst_name = request.form.get('lastName')
         phone_number = request.form.get('phone_number')
         first_name = request.form.get('firstName')
         password1 = request.form.get('password1')

@@ -58,8 +58,9 @@ def login():
 def signup():
     if request.method == 'POST':
         email = request.form.get('email')
-        phone_number = request.form.get('phone_number')
         first_name = request.form.get('firstName')
+        lastst_name = request.form.get('lastName')
+        phone_number = request.form.get('phone_number')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
 
@@ -135,7 +136,7 @@ def upload_file():
 
             return redirect(url_for('display_properties'))
 
-    return render_template('1.html')
+    return render_template('sell.html')
 
 
 def allowed_file(filename):
@@ -151,7 +152,7 @@ def display_properties():
     else:
         return render_template('2.html', properties=property_list)
         
-@app.route('/link_to_2_html')
+@app.route('/link_to_buy_html')
 def link_to_2_html():
     return render_template('2.html', properties=property_list)
 
