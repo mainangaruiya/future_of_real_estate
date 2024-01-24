@@ -6,11 +6,12 @@ while true; do
     if [ -n "$PID" ]; then
         echo "Stopping Python app with PID: $PID"
         kill -TERM $PID
-        sleep 6
+        sleep 1
     fi
 
     echo "Restarting Python app"
     python app.py &
 
-    sleep 30
+    #sleep 5
+
 done
