@@ -12,5 +12,5 @@ while true; do
     echo "Restarting Python app"
     python app.py &
 
-    sleep 600
+    sleep 30
 done
