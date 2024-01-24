@@ -3,6 +3,9 @@ from werkzeug.utils import secure_filename
 import os
 import uuid
 import json
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from website import auth  # assuming auth is the name of your authentication blueprint
+from models import User
 
 app = Flask(__name__, template_folder='website/templates', static_folder='website/static', static_url_path='/website/static')
 
@@ -48,6 +51,7 @@ def signup():
     return render_template('signup.html')
 
 @app.route('/account')
+@login_required
 def account():
     # Display user account information
     return render_template('account.html')
@@ -58,6 +62,7 @@ def serve_uploaded_file(filename):
 
 
 @app.route('/upload', methods=['POST', 'GET'])
+@login_required
 def upload_file():
     if request.method == 'POST':
         file = request.files['file']
