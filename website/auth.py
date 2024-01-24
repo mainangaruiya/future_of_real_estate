@@ -7,6 +7,7 @@ import os
 
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
