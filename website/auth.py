@@ -14,7 +14,7 @@ def login():
         password = request.form.get('password')
 
         user = User.query.filter_by(email=email).first()
-        if user:
+        if user != None:
             if check_password_hash(user.password, password):
                 flash('Logged in successfully!', category='success')
                 login_user(user, remember=True)
@@ -33,34 +33,41 @@ def logout():
     flash('Logged out successfully!', category='success')
     return redirect(url_for('auth.login'))
 
-@auth.route('/sign-up', methods=['GET', 'POST'])
+@auth.route('/signup', methods=['GET', 'POST'])
 def sign_up():
     if request.method == 'POST':
         email = request.form.get('email')
         first_name = request.form.get('firstName')
-        lastst_name = request.form.get('lastName')
-        phone_number = request.form.get('phone_number')
-        first_name = request.form.get('firstName')
+        last_name = request.form.get('lastName')
+        phone_number = request.form.get('phone')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
 
+        from website.models import User
         user = User.query.filter_by(email=email).first()
-        if password1 != password2:
-            flash('Passwords do not match!', category='error')
-        elif len(password1) < 6:
+        if len(password1) < 6 or len(password2) < 6:
             flash('Password must be at least 6 characters.', category='error')
         else:
-            new_user = User(email=email, phone_number=phone_number, first_name=first_name, password=generate_password_hash(password1, method='pbkdf2:sha256'))
-            try:
-                db.session.add(new_user)
-                db.session.commit()  # Commit changes to the database
+            if password1 == password2:
+                #check if user exists
+                if user == None:
+                    new_user = User(email=email, phone_number=phone_number, first_name=first_name,last_name=last_name, password=generate_password_hash(password1, method='pbkdf2:sha256'))
+                    try:
+                        db.session.add(new_user)
+                        db.session.commit()  # Commit changes to the database
 
-                login_user(new_user, remember=True)
-                flash('Account created! Please log in.', category='success')
-                return redirect(url_for('auth.login'))
-            except Exception as e:
-                db.session.rollback()  # Rollback changes in case of an exception
-                flash('Error creating account. Please try again.', category='error')
-                print(e)
+                        #login_user(new_user, remember=True)
+                        flash('Account created! Please log in.', category='success')
+                        return redirect(url_for('login'))  # Assuming 'login' is the name of your login route
+                    except Exception as e:
+                        db.session.rollback()  # Rollback changes in case of an exception
+                        flash('Error creating account. Please try again.', category='error')
+                        print(e)
+                else:
+                    flash("User already exists")
+            
+            else:
+                flash('Passwords do not match!', category='error')
+                
 
-    return render_template("sign-up.html", user=current_user)
+    return render_template("signup.html")

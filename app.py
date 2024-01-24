@@ -1,21 +1,22 @@
-from flask import Flask
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from website import auth
 #from website.views import *  
 import os
 from flask_login import LoginManager
 import json
+from django.contrib.auth.decorators import login_required
 
 app = Flask(__name__, template_folder='website/templates', static_folder='website/static', static_url_path='/website/static')
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] =\
         'sqlite:///' + os.path.join(basedir, 'database.db')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
+#app.register_blueprint(auth.auth)
 
-#app.register_blueprint(auth.auth) 
 
 app.config['MAX_CONTENT_LENGTH'] = 30 * 1024 * 1024  # 30 MB
 ALLOWED_EXTENSIONS = {'webm', 'mp4', 'avi', 'mov', 'mkv'}
@@ -41,7 +42,7 @@ def create_upload_folder():
 def generate_unique_filename():
     return str(uuid.uuid4())
 
-create_upload_folder()
+#create_upload_folder()
 
 
 @app.route('/')
@@ -56,40 +57,12 @@ def login():
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    if request.method == 'POST':
-        email = request.form.get('email')
-        first_name = request.form.get('firstName')
-        lastst_name = request.form.get('lastName')
-        phone_number = request.form.get('phone_number')
-        password1 = request.form.get('password1')
-        password2 = request.form.get('password2')
-
-        user = User.query.filter_by(email=email).first()
-        if password1 != password2:
-            flash('Passwords do not match!', category='error')
-        elif len(password1) < 6:
-            flash('Password must be at least 6 characters.', category='error')
-        else:
-            new_user = User(email=email, phone_number=phone_number, first_name=first_name, password=generate_password_hash(password1, method='pbkdf2:sha256'))
-            try:
-                db.session.add(new_user)
-                db.session.commit()  # Commit changes to the database
-
-                login_user(new_user, remember=True)
-                flash('Account created! Please log in.', category='success')
-                return redirect(url_for('login'))  # Assuming 'login' is the name of your login route
-            except Exception as e:
-                db.session.rollback()  # Rollback changes in case of an exception
-                flash('Error creating account. Please try again.', category='error')
-                print(e)
-
+    from website.models import User
+    # Handle signup logic here
     return render_template('signup.html')
 
-
-       
-
 @app.route('/account')
-#@login_required
+@login_required
 def account():
     from website.models import User
     # Display user account information
@@ -101,7 +74,7 @@ def serve_uploaded_file(filename):
 
 
 @app.route('/upload', methods=['POST', 'GET'])
-#@login_required
+@login_required
 def upload_file():
     from website.models import User
     if request.method == 'POST':

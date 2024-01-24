@@ -16,6 +16,5 @@ class User(db.Model, UserMixin):
     first_name = db.Column(db.String(150))
     last_name = db.Column(db.String(150))
     phone_number = db.Column(db.String(20))
-    notes = db.relationship('Note')
+    #notes = db.relationship('Note')
 
-#db.create_all()
