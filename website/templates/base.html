@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='icon' type="image/x-icon" href="/website/static/favicon.ico" />
     <title>{% block title %}My Website{% endblock %}</title>
 </head>
 <body>
@@ -10,11 +11,9 @@
 <nav style="background-color: #333; overflow: hidden;">
     <ul style="list-style-type: none; margin: 0; padding: 0; display: flex;">
         <li style="float: left;"><a href="{{ url_for('home') }}" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;">Home</a></li>
-        <li style="float: left;"><a href="{{ url_for('upload_file') }}" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;">Sell</a></li>
-        <li style="float: left;"><a href="{{ url_for('display_properties') }}" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;">Buy</a></li>
-        {% block account_button %}{% endblock %}
         <li style="float: right;"><a href="{{ url_for('login') }}" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;">Login</a></li>
         <li style="float: right;"><a href="{{ url_for('signup') }}" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;">Signup</a></li>
+         <li style="float: left;"><a href="{{ url_for('account') }}" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;">Account</a></li>
     </ul>
 </nav>
 

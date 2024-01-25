@@ -20,12 +20,7 @@
 {% block content %}
     <h2>Buy Page</h2>
 
-    <!-- Search form -->
-    <form id="search-form" style="max-width: 600px; margin: 20px auto; padding: 15px; background-color: #f0f0f0; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
-        <!-- Your search form content -->
-    </form>
-
-    <!-- List of available properties -->
+    
     <div id="property-list-container" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
         {% for property in properties %}
             <div class="property-item" data-property-type="{{ property.type | default('all') }}" data-location="{{ property.location }}" data-bedrooms="{{ property.bedrooms }}" data-price="{{ property.price }}" style="margin: 10px; text-align: center; background-color: #333; color: #fff; border-radius: 8px; padding: 15px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
