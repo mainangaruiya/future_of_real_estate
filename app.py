@@ -94,7 +94,7 @@ def login():
             if check_password_hash(user.password, password):
                 flash('Logged in successfully!', category='success')
                 #login_user(user, remember=True)
-                return redirect(url_for('home'))
+                return redirect(url_for('display_properties'))
             else:
                 flash('Incorrect password, try again.', category='error')
         else:
@@ -143,7 +143,7 @@ def signup():
     return render_template('signup.html')
 
 @app.route('/account')
-@login_required
+#@login_required
 def account():
     #from website.models import User
     # Display user account information
@@ -159,7 +159,7 @@ def allowed_file(filename):
 
 
 @app.route('/upload', methods=['POST', 'GET'])
-#@login_required
+@login_required
 def upload_file():
     #from website.models import User
     if request.method == 'POST':
@@ -199,7 +199,7 @@ def upload_file():
 
 
 @app.route('/properties')
-#@login_required
+@login_required
 def display_properties():
     if not property_list:
         return render_template('buy.html', properties=property_list, no_properties=True)
