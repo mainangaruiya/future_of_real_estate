@@ -1,23 +1,44 @@
 from flask import Flask, render_template, request,session,flash,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
-from website import auth
-#from website.views import *  
+from werkzeug.security import generate_password_hash, check_password_hash
+#from website import auth
+#from website.models import model
+#from website.views import routes  
 import os
 from flask_login import LoginManager
+from flask_login import login_user
 import json
 #from django.contrib.auth.decorators import login_required
 from functools import wraps
+from sqlalchemy.orm import DeclarativeBase
+from flask_login import UserMixin
+from sqlalchemy.sql import func
 
 app = Flask(__name__, template_folder='website/templates', static_folder='website/static', static_url_path='/website/static')
 
-basedir = os.path.abspath(os.path.dirname(__file__))
+#basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SECRET_KEY'] = 'whoisthedeveloperinthis'
-app.config['SQLALCHEMY_DATABASE_URI'] =\
-        'sqlite:///' + os.path.join(basedir, 'database.db')
-#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database.db"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
-#app.register_blueprint(auth.auth)
+
+db = SQLAlchemy()
+db.init_app(app)
+
+class Note(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    data = db.Column(db.String(10000))
+    date = db.Column(db.DateTime(timezone=True), default=func.now())
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(150), unique=True)
+    password = db.Column(db.String(150))
+    first_name = db.Column(db.String(150))
+    last_name = db.Column(db.String(150))
+    phone_number = db.Column(db.String(20))
+
 with app.app_context():
     db.create_all()
 
@@ -64,20 +85,67 @@ def home():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    from website.models import User
-    # Handle login logic here
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        user = User.query.filter_by(email=email).first()
+        if user != None:
+            if check_password_hash(user.password, password):
+                flash('Logged in successfully!', category='success')
+                #login_user(user, remember=True)
+                return redirect(url_for('home'))
+            else:
+                flash('Incorrect password, try again.', category='error')
+        else:
+            flash('Email does not exist.', category='error')
     return render_template('login.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    from website.models import User
+    #from website.models import User,Note
     # Handle signup logic here
+    #instance(db)
+    if request.method == 'POST':
+        email = request.form.get('email')
+        first_name = request.form.get('firstName')
+        last_name = request.form.get('lastName')
+        phone_number = request.form.get('phone')
+        password1 = request.form.get('password1')
+        password2 = request.form.get('password2')
+
+        user = User.query.filter_by(email=email).first()
+        if len(password1) < 6 or len(password2) < 6:
+            flash('Password must be at least 6 characters.', category='error')
+        else:
+            if password1 == password2:
+                #check if user exists
+                if user == None:
+                    new_user = User(email=email, phone_number=phone_number, first_name=first_name,last_name=last_name, password=generate_password_hash(password1, method='pbkdf2:sha256'))
+                    try:
+                        db.session.add(new_user)
+                        db.session.commit()  # Commit changes to the database
+
+                        #login_user(new_user, remember=True)
+                        #flash('Account created! Please log in.', category='success')
+                        print("Reached this sink")
+                        return redirect(url_for('login'))  # Assuming 'login' is the name of your login route
+                    except Exception as e:
+                        db.session.rollback()  # Rollback changes in case of an exception
+                        flash('Error creating account. Please try again.', category='error')
+                        print(e)
+                else:
+                    flash("User already exists")
+            
+            else:
+                flash('Passwords do not match!', category='error')
+                
     return render_template('signup.html')
 
 @app.route('/account')
 #@login_required
 def account():
-    from website.models import User
+    #from website.models import User
     # Display user account information
     return render_template('account.html')
 
@@ -133,7 +201,6 @@ def upload_file():
 @app.route('/properties')
 #@login_required
 def display_properties():
-    from website.models import User
     if not property_list:
         return render_template('buy.html', properties=property_list, no_properties=True)
     else:

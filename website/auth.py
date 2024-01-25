@@ -1,15 +1,19 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .models import User
+from .models import User,Note
 from werkzeug.security import generate_password_hash, check_password_hash
-from app import db
+from app import *
 from flask_login import login_user, login_required, logout_user, current_user
 import os
 
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 
+#global User, Note
+#User,Note = model(db)
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    return redirect(url_for("signup"))
+    #model(db)
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
@@ -36,6 +40,8 @@ def logout():
 
 @auth.route('/signup', methods=['GET', 'POST'])
 def sign_up():
+    print("Reached this sink")
+    #model(db)
     if request.method == 'POST':
         email = request.form.get('email')
         first_name = request.form.get('firstName')
@@ -58,7 +64,8 @@ def sign_up():
                         db.session.commit()  # Commit changes to the database
 
                         #login_user(new_user, remember=True)
-                        flash('Account created! Please log in.', category='success')
+                        #flash('Account created! Please log in.', category='success')
+                        print("Reached this sink")
                         return redirect(url_for('login'))  # Assuming 'login' is the name of your login route
                     except Exception as e:
                         db.session.rollback()  # Rollback changes in case of an exception
