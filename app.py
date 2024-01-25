@@ -10,7 +10,7 @@ from flask_login import login_user
 import json
 #from django.contrib.auth.decorators import login_required
 from functools import wraps
-from sqlalchemy.orm import DeclarativeBase
+#from sqlalchemy.orm import DeclarativeBase
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 
@@ -143,7 +143,7 @@ def signup():
     return render_template('signup.html')
 
 @app.route('/account')
-#@login_required
+@login_required
 def account():
     #from website.models import User
     # Display user account information
